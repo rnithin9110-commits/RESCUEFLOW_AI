@@ -1,0 +1,349 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>RESCUEFLOW AI - Incident Tracking Center</title>
+
+    <!-- Dashboard CSS -->
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Leaflet Map CSS -->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+
+    <style>
+        #incident-map {
+            width: 100%;
+            height: 350px;
+            border-radius: 8px;
+            z-index: 1;
+        }
+
+        #selected-location {
+            color: #a7adb8;
+            font-size: 12px;
+            margin-top: 12px;
+        }
+
+        #use-my-location {
+            margin-top: 12px;
+            background: #08d6c4;
+            color: #101114;
+            padding: 11px 16px;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-logo">R</div>
+
+            <div>
+                <h2>RESCUEFLOW</h2>
+                <small>AI RESPONSE CENTER</small>
+            </div>
+        </div>
+
+        <p class="menu-title">MAIN MENU</p>
+
+        <a href="/" class="nav-link active">▦ Dashboard</a>
+        <a href="#incident-list-section" class="nav-link">⚠ Incidents</a>
+        <a href="#report-section" class="nav-link">＋ New Report</a>
+        <a href="#team-section" class="nav-link">♧ Rescue Teams</a>
+
+        <div class="sidebar-footer">
+            <span class="online-dot"></span>
+            System Online
+            <small>Simulation Environment</small>
+        </div>
+
+    </aside>
+
+    <!-- MAIN DASHBOARD -->
+    <main class="main-content">
+
+        <header class="top-header">
+
+            <div>
+                <h1>Incident Tracking Center</h1>
+                <p>Emergency response monitoring and coordination</p>
+            </div>
+
+            <div class="risk-status">
+                OVERALL RISK LEVEL:
+                <strong id="overall-risk">LOW</strong>
+            </div>
+
+        </header>
+
+        <!-- STATISTICS -->
+        <section class="stats-grid">
+
+            <div class="stat-card">
+                <span>Total Incidents</span>
+                <h2 id="total-incidents">0</h2>
+                <small>All recorded incidents</small>
+            </div>
+
+            <div class="stat-card">
+                <span>High Risk</span>
+                <h2 id="high-priority">0</h2>
+                <small>High priority incidents</small>
+            </div>
+
+            <div class="stat-card">
+                <span>Medium Risk</span>
+                <h2 id="medium-priority">0</h2>
+                <small>Medium priority incidents</small>
+            </div>
+
+            <div class="stat-card">
+                <span>Low Risk</span>
+                <h2 id="low-priority">0</h2>
+                <small>Low priority incidents</small>
+            </div>
+
+        </section>
+
+        <!-- MAP AND NOTIFICATIONS -->
+        <section class="top-grid">
+
+            <!-- REAL MAP -->
+            <div class="panel map-panel">
+
+                <div class="panel-heading">
+                    <h2>Incident Location Overview</h2>
+                    <span class="demo-label">OPENSTREETMAP</span>
+                </div>
+
+                <div id="incident-map"></div>
+
+                <p id="selected-location">
+                    Click on the map to select an incident location.
+                </p>
+
+                <button type="button" id="use-my-location">
+                    Use My Current Location
+                </button>
+
+            </div>
+
+            <!-- NOTIFICATIONS -->
+            <div class="panel notification-panel">
+
+                <div class="panel-heading">
+                    <h2>Incident Notifications</h2>
+                    <span class="notification-dot"></span>
+                </div>
+
+                <div id="notification-list">
+                    <p class="empty-message">
+                        Loading incident notifications...
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ANALYTICS AND RISK -->
+        <section class="bottom-grid">
+
+            <div class="panel analytics-panel">
+
+                <div class="panel-heading">
+                    <h2>Incident Categories</h2>
+                </div>
+
+                <div id="category-chart" class="chart-area">
+                    <p>Loading incident analytics...</p>
+                </div>
+
+            </div>
+
+            <div class="panel risk-panel">
+
+                <div class="panel-heading">
+                    <h2>Incident Risk Levels</h2>
+                </div>
+
+                <div class="risk-item">
+                    <span class="risk-circle high"></span>
+                    High Priority
+                    <strong id="risk-high">0</strong>
+                </div>
+
+                <div class="risk-item">
+                    <span class="risk-circle medium"></span>
+                    Medium Priority
+                    <strong id="risk-medium">0</strong>
+                </div>
+
+                <div class="risk-item">
+                    <span class="risk-circle low"></span>
+                    Low Priority
+                    <strong id="risk-low">0</strong>
+                </div>
+
+                <div id="team-section" class="team-shortcut">
+
+                    <h3>Rescue Team Coordination</h3>
+
+                    <p>
+                        Get team recommendations for reported incidents.
+                    </p>
+
+                    <a href="#incident-list-section">View Incidents</a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ACTION CARDS -->
+        <section class="action-grid">
+
+            <a href="#incident-list-section"
+               class="action-card orange">
+
+                <span>⚠</span>
+                <strong>INCIDENT RECORDS</strong>
+
+            </a>
+
+            <a href="#report-section"
+               class="action-card blue">
+
+                <span>＋</span>
+                <strong>NEW INCIDENT</strong>
+
+            </a>
+
+            <a href="#team-section"
+               class="action-card purple">
+
+                <span>♧</span>
+                <strong>RESCUE TEAMS</strong>
+
+            </a>
+
+        </section>
+
+        <!-- REPORT INCIDENT -->
+        <section class="panel" id="report-section">
+
+            <div class="panel-heading">
+                <h2>Report New Simulated Incident</h2>
+            </div>
+
+            <form id="incident-form">
+
+                <div class="form-grid">
+
+                    <div>
+                        <label for="title">Incident Title</label>
+
+                        <input
+                            type="text"
+                            id="title"
+                            placeholder="Enter incident title"
+                            required
+                        >
+                    </div>
+
+                    <div>
+                        <label for="incident_type">Incident Type</label>
+
+                        <select id="incident_type" required>
+
+                            <option value="">Select type</option>
+                            <option value="Fire">Fire</option>
+                            <option value="Medical">Medical</option>
+                            <option value="Flood">Flood</option>
+                            <option value="Accident">Accident</option>
+                            <option value="Other">Other</option>
+
+                        </select>
+                    </div>
+
+                    <div class="full-width">
+
+                        <label for="description">Description</label>
+
+                        <textarea
+                            id="description"
+                            placeholder="Describe the incident..."
+                            required
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+                <div class="form-footer">
+
+                    <p id="message"></p>
+
+                    <button type="submit">
+                        Submit Incident
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+        <!-- INCIDENT RECORDS -->
+        <section class="panel" id="incident-list-section">
+
+            <div class="panel-heading">
+                <h2>Incident Management</h2>
+            </div>
+
+            <div id="incident-list">
+                Loading incidents...
+            </div>
+
+        </section>
+
+        <!-- FOOTER -->
+        <footer>
+
+            RESCUEFLOW AI | Emergency Response Coordination
+
+            <p>
+                Educational simulation only - Not for real emergencies
+            </p>
+
+        </footer>
+
+    </main>
+
+</div>
+
+<!-- Leaflet Map JavaScript -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<!-- Dashboard JavaScript -->
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>
