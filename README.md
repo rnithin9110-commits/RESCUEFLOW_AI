@@ -1,77 +1,225 @@
 # 🚨 RESCUEFLOW AI
-### Intelligent Emergency Response & Coordination System
+### Smart Emergency Response & Coordination Platform
 
 <p align="center">
-  <strong>Report Faster. Respond Smarter. Save Lives.</strong>
+  <img src="https://img.shields.io/badge/RESCUEFLOW-AI-00BFA6?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Python-Flask-blue?style=for-the-badge&logo=python" />
+  <img src="https://img.shields.io/badge/Status-Prototype-success?style=for-the-badge" />
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Python-3.10+-blue?logo=python" />
-  <img src="https://img.shields.io/badge/Flask-Backend-black?logo=flask" />
-  <img src="https://img.shields.io/badge/Database-SQLite-blue?logo=sqlite" />
-  <img src="https://img.shields.io/badge/Map-OpenStreetMap-green" />
-  <img src="https://img.shields.io/badge/Project-Educational%20Prototype-orange" />
+  <b>REPORT FASTER • ANALYZE SMARTER • COORDINATE BETTER</b>
 </p>
 
 ---
 
-## 🌍 About the Project
+## 🌍 1. Project Overview
 
-**RESCUEFLOW AI** is an emergency response coordination platform designed to simplify incident reporting, identify emergency priority levels, visualize incident locations, and recommend suitable rescue teams.
+RESCUEFLOW AI is an AI-assisted emergency response coordination prototype designed to demonstrate how technology can help organize emergency incident reporting and rescue team coordination.
 
-The platform provides a centralized dashboard where users can report simulated emergencies and monitor incidents through an interactive map and real-time dashboard updates.
+It provides a centralized dashboard to report simulated emergencies, classify incident priority, visualize incident locations, and recommend suitable rescue teams.
 
-Our goal is to demonstrate how technology can support faster and more organized emergency response coordination.
+The main objective is to demonstrate a smarter and more organized emergency response workflow.
 
-## ✨ Key Features
+## 🖥️ 2. Application Preview
 
-| Feature | Description |
+### Main Dashboard
+
+<!-- Save your actual dashboard screenshot as docs/screenshots/dashboard.png -->
+
+![RESCUEFLOW AI Dashboard](docs/screenshots/dashboard.png)
+
+*Centralized monitoring dashboard displaying incidents, risk levels, notifications, and analytics.*
+
+### Incident Management
+
+<!-- Save your actual incident management screenshot as docs/screenshots/incidents.png -->
+
+![Incident Management](docs/screenshots/incidents.png)
+
+*View reported incidents, their descriptions, priorities, and current statuses.*
+
+### Interactive Incident Map
+
+<!-- Save your actual map screenshot as docs/screenshots/map.png -->
+
+![Interactive Map](docs/screenshots/map.png)
+
+*Visualize saved incident locations using Leaflet and OpenStreetMap.*
+
+### Rescue Team Recommendation
+
+<!-- Save your actual rescue team screenshot as docs/screenshots/rescue-team.png -->
+
+![Rescue Team Recommendation](docs/screenshots/rescue-team.png)
+
+*Get a recommended rescue team based on the reported incident type.*
+
+---
+
+## ✨ 3. Key Features
+
+| Feature | What it does |
 |---|---|
-| 📊 Smart Dashboard | Monitor total incidents and priority statistics |
-| 🚨 Incident Reporting | Submit and manage emergency reports |
-| 🧠 Priority Classification | Automatically classify incidents using keyword-based rules |
-| 🗺️ Interactive Map | Visualize incident locations using OpenStreetMap |
-| 📍 GPS Location | Select locations using browser geolocation |
-| 👨‍🚒 Rescue Team Matching | Recommend teams based on incident type |
-| 🔔 Notifications | Display recent incident notifications |
-| 📈 Incident Analytics | Visualize incident categories and risk levels |
-| 🗄️ Database Management | Store incident records using SQLite |
+| 📊 Dashboard | Displays incident statistics |
+| 🚨 Incident Reporting | Records simulated emergencies |
+| 🧠 Priority Classification | Uses keyword-based rules to classify incidents |
+| 🗺️ Interactive Map | Displays incident locations |
+| 📍 Location Selection | Supports map selection and browser GPS |
+| 👨‍🚒 Team Recommendation | Matches incident types with rescue teams |
+| 🔔 Notifications | Displays recent incident reports |
+| 📈 Analytics | Shows incident category and risk information |
+| 🗄️ Database | Stores incident records in SQLite |
 
-## 🖥️ Dashboard Preview
+---
 
-Add your actual dashboard screenshot here:
+## 🔄 4. How RESCUEFLOW AI Works
+
+The following diagram explains the complete incident workflow.
+
+```mermaid
+flowchart TD
+    A([User Opens Dashboard]) --> B[Report Simulated Emergency]
+    B --> C[Enter Incident Details]
+    C --> D[Select Incident Location]
+    D --> E[Submit Incident]
+    E --> F[(SQLite Database)]
+    F --> G[Priority Classification]
+    G --> H[Update Dashboard]
+    H --> I[Display Incident on Map]
+    I --> J[Recommend Rescue Team]
+    J --> K([Incident Monitoring])
+```
+
+### Step-by-Step Working
+
+**Step 1 – Report an Emergency**
+
+The user enters the incident title, type, and description.
+
+**Step 2 – Select Location**
+
+The user selects a location on the interactive map or uses browser location permission.
+
+**Step 3 – Save Incident**
+
+The application stores incident information and coordinates in SQLite.
+
+**Step 4 – Classify Priority**
+
+The Python priority classifier checks keywords and assigns High, Medium, or Low priority.
+
+**Step 5 – Update Dashboard**
+
+The dashboard displays incident statistics, notifications, categories, and risk levels.
+
+**Step 6 – Recommend Rescue Team**
+
+The team-matching service recommends a suitable team based on incident type.
+
+---
+
+## 🏗️ 5. System Architecture
+
+```mermaid
+flowchart TB
+    U[User] --> UI[HTML CSS JavaScript Dashboard]
+    UI --> MAP[Leaflet OpenStreetMap]
+    UI --> API[Flask REST API]
+    API --> P[Priority Classifier]
+    API --> T[Rescue Team Matcher]
+    API --> DB[(SQLite Database)]
+    DB --> API
+    P --> API
+    T --> API
+    API --> UI
+```
+
+### Architecture Components
+
+- **Frontend:** Displays the dashboard and accepts incident reports.
+- **Flask Backend:** Handles application routes and API requests.
+- **Priority Classifier:** Assigns priority using predefined keywords.
+- **Team Matcher:** Finds a matching rescue team.
+- **SQLite:** Stores incident information.
+- **Leaflet:** Displays interactive map locations.
+
+---
+
+## 🧠 6. Priority Classification
+
+RESCUEFLOW AI uses a rule-based keyword classifier.
+
+| Priority | Example keywords |
+|---|---|
+| 🔴 High | Fire, trapped, unconscious, explosion, collapsed |
+| 🟠 Medium | Smoke, accident, flood, injured, blocked road |
+| 🟢 Low | Other reports without matching higher-priority keywords |
+
+### Classification Example
+
+**Input:**
 
 ```text
-docs/screenshots/dashboard.png
+Title: Building Fire
+Description: People are trapped inside the building.
+Type: Fire
 ```
 
-Once uploaded, display it using:
+**Output:**
 
-```markdown
-![RESCUEFLOW AI Dashboard](docs/screenshots/dashboard.png)
+```text
+Priority: HIGH
 ```
 
-## ⚙️ Technology Stack
+*Note: This is a rule-based prototype, not a trained machine-learning model.*
 
-**Frontend**
-- HTML5
-- CSS3
-- JavaScript
-- Leaflet.js
+---
 
-**Backend**
-- Python
-- Flask
-- Flask-SQLAlchemy
+## 👨‍🚒 7. Rescue Team Coordination
 
-**Database**
-- SQLite
+The system recommends teams according to incident type.
 
-**Mapping**
-- OpenStreetMap
-- Leaflet
+| Incident Type | Recommended Team |
+|---|---|
+| Fire | Fire Rescue Team |
+| Medical | Medical Team |
+| Flood | Flood Rescue Team |
 
-## 🏗️ Project Architecture
+Example:
+
+```text
+Incident: Medical Emergency Test
+Type: Medical
+
+Recommended Team:
+Medical Team
+```
+
+---
+
+## 🛠️ 8. Technology Stack
+
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=python,flask,html,css,js,sqlite,git,github" />
+</p>
+
+| Technology | Purpose |
+|---|---|
+| Python | Backend programming |
+| Flask | Web framework |
+| HTML5 | Page structure |
+| CSS3 | Dashboard styling |
+| JavaScript | Interactive functionality |
+| SQLite | Database |
+| Flask-SQLAlchemy | Database integration |
+| Leaflet.js | Interactive mapping |
+| OpenStreetMap | Map tiles |
+| Git & GitHub | Version control |
+
+---
+
+## 📁 9. Project Structure
 
 ```text
 RESCUEFLOW_AI/
@@ -100,109 +248,123 @@ RESCUEFLOW_AI/
 │   └── dashboard/
 │       └── index.html
 │
-├── data/
 ├── docs/
+│   └── screenshots/
+│       ├── dashboard.png
+│       ├── incidents.png
+│       ├── map.png
+│       └── rescue-team.png
+│
 ├── tests/
+├── data/
 ├── app.py
 ├── requirements.txt
 ├── README.md
 └── .gitignore
 ```
 
-## 🚀 Getting Started
+---
 
-Follow these steps to run RESCUEFLOW AI locally.
+## 🚀 10. Installation & Setup
 
-### 1. Clone the Repository
+### Prerequisites
+
+- Python 3.10 or newer
+- Git
+- VS Code or another code editor
+
+### Step 1 – Clone Repository
 
 ```bash
 git clone YOUR_GITHUB_REPOSITORY_URL
 ```
 
-### 2. Open the Project Folder
+### Step 2 – Open Project
 
 ```bash
 cd RESCUEFLOW_AI
 ```
 
-### 3. Create a Virtual Environment
+### Step 3 – Create Virtual Environment
 
 ```bash
 python -m venv .venv
 ```
 
-### 4. Activate the Environment
+### Step 4 – Activate Environment
 
-**Windows PowerShell:**
+Windows PowerShell:
 
 ```powershell
 .\.venv\Scripts\Activate.ps1
 ```
 
-### 5. Install Dependencies
+### Step 5 – Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 6. Run the Application
+### Step 6 – Start Application
 
 ```bash
 python app.py
 ```
 
-### 7. Open in Browser
+### Step 7 – Open Dashboard
+
+Visit:
 
 ```text
 http://127.0.0.1:5000/
 ```
 
-## 🔄 How It Works
+---
 
-1. User reports a simulated emergency.
-2. User selects the incident location on the map.
-3. The system stores incident information in SQLite.
-4. A rule-based classifier determines the priority.
-5. The dashboard updates incident statistics and notifications.
-6. The system recommends a rescue team based on incident type.
+## 🎯 11. Project Objectives
 
-## 🎯 Project Objectives
+- Demonstrate centralized emergency incident management.
+- Provide automatic rule-based priority classification.
+- Visualize incident locations.
+- Demonstrate rescue team matching.
+- Explore how web technologies can support emergency coordination.
 
-- Simplify emergency incident reporting.
-- Demonstrate automated priority classification.
-- Improve visibility of incident locations.
-- Demonstrate skill-based rescue team recommendations.
-- Provide centralized incident monitoring.
+---
 
-## 🔮 Future Enhancements
+## 🔮 12. Future Enhancements
 
 - 🤖 Machine-learning-based incident classification.
-- 📱 Mobile application integration.
-- 🛰️ Advanced location and geospatial analysis.
+- 📱 Mobile application.
 - 🔔 SMS and email notifications.
-- 👥 User authentication and role management.
+- 👥 User authentication and role-based access.
 - 🚑 Live rescue team tracking.
-- ☁️ Cloud database and deployment.
+- ☁️ Cloud database integration.
+- 📍 Advanced geospatial analysis.
 
-## 👨‍💻 Project Information
+---
 
-**Project Name:** RESCUEFLOW AI
+## ⚠️ 13. Safety Disclaimer
 
-**Category:** AI-Assisted Emergency Response Coordination
+RESCUEFLOW AI is an educational and hackathon prototype.
 
-**Development:** Python + Flask
+It is not connected to official emergency services. Its priority classification and team recommendations are demonstrations only and must not be relied upon for real emergency dispatch, medical decisions, or rescue operations.
 
-**Project Type:** Educational / Hackathon Prototype
+---
 
-## ⚠️ Disclaimer
+## ⭐ 14. Support & Contribution
 
-RESCUEFLOW AI is an educational simulation prototype. It is not connected to official emergency services and must not be used for real emergency dispatch, medical decisions, or rescue operations.
+If you find this project interesting:
 
-## ⭐ Support
+- ⭐ Star the repository.
+- 🍴 Fork the project.
+- 🐛 Report issues.
+- 💡 Suggest improvements.
 
-If you find this project interesting, consider giving the repository a ⭐ on GitHub.
+---
 
 <p align="center">
-  <strong>RESCUEFLOW AI</strong><br/>
-  Building Smarter Emergency Response Solutions.
+  <b>RESCUEFLOW AI</b><br/>
+  Smart Technology for Better Emergency Coordination.
+  <br/><br/>
+  Built with ❤️ using Python, Flask and JavaScript.
 </p>
